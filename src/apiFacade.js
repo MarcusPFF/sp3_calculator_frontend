@@ -81,10 +81,10 @@ const getUserNameAndRoles = () => {
     return ["", ""];
 }
 
-    const hasUserAccess = (neededRole, loggedIn) => {
-        const roles = getUserNameAndRoles().split(',')
-        return loggedIn && roles.includes(neededRole)
-    }
+    // const hasUserAccess = (neededRole, loggedIn) => {
+    //     const roles = getUserNameAndRoles().split(',')
+    //     return loggedIn && roles.includes(neededRole)
+    // }
 
 const register = (user, password) => {
   const options = makeOptions("POST", false, {
