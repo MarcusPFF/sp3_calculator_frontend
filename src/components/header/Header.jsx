@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router";
 import facade from "../../apiFacade";
 import styles from "./Header.module.css";
@@ -10,14 +10,16 @@ const Header = ({ loggedIn, setLoggedIn }) => {
     username: "",
     password: "",
   });
+
+  const [isPaidSignup, setIsPaidSignup] = useState(false);
+  const [secretCode, setSecretCode] = useState("");
+
   const [error, setError] = useState("");
 
   useEffect(() => {
     let timer;
     if (error) {
-      timer = setTimeout(() => {
-        setError("");
-      }, 5000);
+      timer = setTimeout(() => setError(""), 5000);
     }
     return () => clearTimeout(timer);
   }, [error]);
@@ -26,6 +28,8 @@ const Header = ({ loggedIn, setLoggedIn }) => {
     facade.logout();
     setLoggedIn(false);
     setCredentials({ username: "", password: "" });
+    setIsPaidSignup(false);
+    setSecretCode("");
     navigate("/");
   };
 
@@ -36,7 +40,6 @@ const Header = ({ loggedIn, setLoggedIn }) => {
   const performLogin = async (evt) => {
     evt.preventDefault();
     setError("");
-
     try {
       await facade.login(credentials.username, credentials.password);
       setLoggedIn(true);
@@ -51,8 +54,18 @@ const Header = ({ loggedIn, setLoggedIn }) => {
     evt.preventDefault();
     setError("");
 
+    let role = "GUEST";
+    if (isPaidSignup) {
+      if (secretCode === "exam2026") {
+        role = "ADMIN";
+      } else {
+        setError("Wrong Secret Code!");
+        return;
+      }
+    }
+
     try {
-      await facade.register(credentials.username, credentials.password);
+      await facade.register(credentials.username, credentials.password, role);
       await facade.login(credentials.username, credentials.password);
       setLoggedIn(true);
       navigate("/");
@@ -69,9 +82,11 @@ const Header = ({ loggedIn, setLoggedIn }) => {
   let username = "";
   if (loggedIn) {
     try {
-      username = facade.getUserNameAndRoles()[0];
+      const token = facade.getToken();
+      const payload = JSON.parse(window.atob(token.split(".")[1]));
+      username = payload.username || payload.sub || payload.name;
     } catch (e) {
-      console.error(e);
+      console.error("Could not decode token", e);
     }
   }
 
@@ -146,6 +161,27 @@ const Header = ({ loggedIn, setLoggedIn }) => {
               onChange={onChange}
               value={credentials.password}
             />
+
+            <div className={styles.paidToggle}>
+              <label className={styles.checkboxLabel}>
+                <input
+                  type="checkbox"
+                  checked={isPaidSignup}
+                  onChange={(e) => setIsPaidSignup(e.target.checked)}
+                />
+                <span className={styles.tooltip}>Paid?</span>
+              </label>
+            </div>
+
+            {isPaidSignup && (
+              <input
+                className={`${styles.input} ${styles.secretInput}`}
+                placeholder="Code"
+                type="password"
+                value={secretCode}
+                onChange={(e) => setSecretCode(e.target.value)}
+              />
+            )}
 
             <button onClick={performLogin} className={styles.loginBtn}>
               Login

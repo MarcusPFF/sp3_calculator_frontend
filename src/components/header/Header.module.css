@@ -10,11 +10,10 @@
   padding: 0 2rem;
   box-sizing: border-box;
 
-
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;    
+  position: relative;
 }
 
 .nav {
@@ -46,15 +45,14 @@
   font-size: 0.95rem;
 }
 
-
 .authSection {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  
+
   position: absolute;
-  right: 2rem; 
-  height: 100%; 
+  right: 2rem;
+  height: 100%;
 }
 
 .loggedInBox {
@@ -114,7 +112,8 @@
   color: #777;
 }
 
-.loginBtn, .signupBtn {
+.loginBtn,
+.signupBtn {
   padding: 8px 12px;
   border-radius: 6px;
   border: none;
@@ -134,18 +133,113 @@
   color: white;
 }
 
-.loginBtn:hover, .signupBtn:hover {
+.loginBtn:hover,
+.signupBtn:hover {
   filter: brightness(1.1);
   transform: translateY(-1px);
 }
 
 .errorTooltip {
   position: absolute;
-  bottom: 10px; 
+  bottom: 10px;
   right: 0;
   background: #ff4444;
   color: white;
   font-size: 0.75rem;
   padding: 2px 6px;
   border-radius: 4px;
+}
+
+.paidToggle {
+  display: flex;
+  align-items: center;
+  margin: 0 5px;
+}
+
+.checkboxLabel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  font-size: 0.7rem;
+  color: #aaa;
+}
+
+.checkboxLabel input {
+  cursor: pointer;
+}
+
+.secretInput {
+  width: 60px !important;
+  border-color: gold !important;
+  color: gold !important;
+}
+
+.secretInput::placeholder {
+  color: #b8860b;
+}
+
+@media (max-width: 1350px) {
+  .header {
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .authSection {
+    position: static;
+    height: auto;
+    min-width: auto;
+  }
+
+  .link,
+  .active {
+    font-size: 0.85rem;
+    padding: 6px 8px;
+  }
+}
+
+@media (max-width: 850px) {
+  .header {
+    height: auto;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 15px;
+  }
+
+  .nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .authSection {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .loginForm {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .input {
+    width: 100%;
+    text-align: center;
+  }
+
+  .loginBtn,
+  .signupBtn {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .paidToggle {
+    margin: 5px 0;
+  }
+
+  .loggedInBox {
+    flex-direction: column;
+    gap: 10px;
+  }
 }

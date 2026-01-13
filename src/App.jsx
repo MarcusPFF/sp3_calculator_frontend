@@ -12,8 +12,7 @@ import facade from "./apiFacade";
 import "./App.css";
 
 function App() {
-
-const [loggedIn, setLoggedIn] = useState(facade.loggedIn());
+  const [loggedIn, setLoggedIn] = useState(facade.loggedIn());
 
   return (
     <BrowserRouter>
@@ -22,13 +21,12 @@ const [loggedIn, setLoggedIn] = useState(facade.loggedIn());
 
         <div className="page-content">
           <Routes>
-            <Route path="/" element={<Calculator />} />
+            <Route path="/" element={<Calculator loggedIn={loggedIn} />} />{" "}
             <Route path="/info" element={<Information />} />
             <Route path="/examples" element={<ApiExamples />} />
             <Route path="/calculations" element={<CalculationHistory />} />
             <Route path="/healthcheck" element={<Healthcheck />} />
             <Route path="/stats" element={<Stats />} />
-
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>

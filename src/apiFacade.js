@@ -20,12 +20,13 @@ const login = (user, password) => {
   });
   return fetch(BASE_URL + LOGIN_ENDPOINT, options)
     .then(handleHttpErrors)
-    .then((data) => { setToken(data.token);
+    .then((data) => {
+      setToken(data.token);
     });
 };
 
 const fetchData = (endpoint) => {
-  const options = makeOptions("GET", true); 
+  const options = makeOptions("GET", true);
   return fetch(BASE_URL + endpoint, options).then(handleHttpErrors);
 };
 
@@ -60,17 +61,15 @@ const logout = () => {
   localStorage.removeItem("jwtToken");
 };
 
-
 const getUserNameAndRoles = () => {
     const token = getToken();
     if (token != null) {
         try {
             const payloadBase64 = token.split('.')[1];
             const decodedClaims = JSON.parse(window.atob(payloadBase64));
-          
-            const roles = decodedClaims.roles;
-            
-            const username = decodedClaims.username || decodedClaims.sub || decodedClaims.name;
+
+            const roles = decodedClaims.role; 
+            const username = decodedClaims.username;
             
             return [username, roles];
         } catch (e) {
@@ -81,20 +80,18 @@ const getUserNameAndRoles = () => {
     return ["", ""];
 }
 
-    // const hasUserAccess = (neededRole, loggedIn) => {
-    //     const roles = getUserNameAndRoles().split(',')
-    //     return loggedIn && roles.includes(neededRole)
-    // }
+// const hasUserAccess = (neededRole, loggedIn) => {
+//     const roles = getUserNameAndRoles().split(',')
+//     return loggedIn && roles.includes(neededRole)
+// }
 
-const register = (user, password) => {
+const register = (user, password, role) => {
   const options = makeOptions("POST", false, {
     username: user,
     password: password,
-    role: "GUEST" 
+    role: role,
   });
-
-  return fetch(BASE_URL + "auth/register", options)
-    .then(handleHttpErrors);
+  return fetch(BASE_URL + "auth/register", options).then(handleHttpErrors);
 };
 
 const facade = {
@@ -106,8 +103,7 @@ const facade = {
   logout,
   fetchData,
   getUserNameAndRoles,
-  register
+  register,
 };
-
 
 export default facade;
