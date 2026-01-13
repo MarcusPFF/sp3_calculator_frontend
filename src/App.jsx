@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router";
 import Header from "./components/header/Header";
 import Calculator from "./components/calculator/Calculator";
@@ -7,13 +8,17 @@ import ApiExamples from "./components/apiexamples/ApiExamples";
 import Information from "./components/information/Information";
 import Healthcheck from "./components/healthcheck/Healthcheck";
 import Stats from "./components/stats/Stats";
+import facade from "./apiFacade";
 import "./App.css";
 
 function App() {
+
+const [loggedIn, setLoggedIn] = useState(facade.loggedIn());
+
   return (
     <BrowserRouter>
       <div className="App">
-        <Header />
+        <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
 
         <div className="page-content">
           <Routes>
