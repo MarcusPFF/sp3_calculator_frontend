@@ -13,12 +13,12 @@ const Header = () => {
           History
         </NavLink>
 
-        <NavLink to="/stats" className={({isActive}) => isActive ? styles.active : styles.link}>
-          Stats
+        <NavLink to="/examples" className={({isActive}) => isActive ? styles.active : styles.link}>
+          API Examples
         </NavLink>
 
-        <NavLink to="/examples" className={({isActive}) => isActive ? styles.active : styles.link}>
-          Examples
+        <NavLink to="/stats" className={({isActive}) => isActive ? styles.active : styles.link}>
+          Stats
         </NavLink>
 
         <NavLink to="/info" className={({isActive}) => isActive ? styles.active : styles.link}>

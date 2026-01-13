@@ -32,7 +32,7 @@ const Calculator = () => {
 
   return (
     <div className={styles.card}>
-      <h2>Exam Calculator</h2>
+      <h2> API Calculator</h2>
 
       <Inputs num1={num1} setNum1={setNum1} num2={num2} setNum2={setNum2} />
 

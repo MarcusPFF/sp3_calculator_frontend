@@ -1,20 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 import Header from "./components/header/Header";
 import Calculator from "./components/calculator/Calculator";
+import CalculationHistory from "./components/calchistory/CalculationHistory";
+import NotFound from "./components/handling/NotFound";
+import ApiExamples from "./components/apiexamples/ApiExamples";
+import Information from "./components/information/Information";
+import Healthcheck from "./components/healthcheck/Healthcheck";
+import Stats from "./components/stats/Stats";
 import "./App.css";
-
-//Remove - placeholders
-const Stats = () => (
-  <h2 style={{ textAlign: "center" }}>Statistics (Coming Soon)</h2>
-);
-const Info = () => <h2 style={{ textAlign: "center" }}>Information Page</h2>;
-const Examples = () => (
-  <h2 style={{ textAlign: "center" }}>Example Calculations</h2>
-);
-const Calculations = () => <h2 style={{ textAlign: "center" }}>My History</h2>;
-const Healthcheck = () => (
-  <h2 style={{ textAlign: "center", color: "green" }}>System Online ✅</h2>
-);
 
 function App() {
   return (
@@ -25,13 +18,13 @@ function App() {
         <div className="page-content">
           <Routes>
             <Route path="/" element={<Calculator />} />
-            <Route path="/stats" element={<Stats />} />
-            <Route path="/info" element={<Info />} />
-            <Route path="/examples" element={<Examples />} />
-            <Route path="/calculations" element={<Calculations />} />
+            <Route path="/info" element={<Information />} />
+            <Route path="/examples" element={<ApiExamples />} />
+            <Route path="/calculations" element={<CalculationHistory />} />
             <Route path="/healthcheck" element={<Healthcheck />} />
+            <Route path="/stats" element={<Stats />} />
 
-            <Route path="*" element={<h2>Page Not Found</h2>} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
       </div>
