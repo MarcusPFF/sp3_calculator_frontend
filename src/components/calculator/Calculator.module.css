@@ -111,7 +111,7 @@
 
 .buttonSection {
   display: grid;
-  grid-template-columns: 1fr 1fr; 
+  grid-template-columns: 1fr 1fr;
   gap: 15px;
   width: 100%;
 }
@@ -166,12 +166,9 @@
   letter-spacing: 1px;
 }
 
-
-
 .mulBtn:disabled,
 .divBtn:disabled {
-  opacity: 0.5;          
-  cursor: not-allowed;    
-  filter: grayscale(100%); 
-  pointer-events: none;   
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(100%);
 }
