@@ -39,6 +39,12 @@ const Header = ({ loggedIn, setLoggedIn }) => {
 
   const performLogin = async (evt) => {
     evt.preventDefault();
+
+    if (!credentials.username || !credentials.password) {
+        setError("Enter username & password");
+        return;
+    }
+
     setError("");
     try {
       await facade.login(credentials.username, credentials.password);
@@ -52,6 +58,12 @@ const Header = ({ loggedIn, setLoggedIn }) => {
 
   const performRegister = async (evt) => {
     evt.preventDefault();
+
+    if (!credentials.username || !credentials.password) {
+        setError("Enter username & password");
+        return;
+    }
+    
     setError("");
 
     let role = "GUEST";
