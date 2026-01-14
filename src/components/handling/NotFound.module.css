@@ -1,0 +1,95 @@
+.container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  color: #e0e0e0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  padding: 2rem;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.container h2 {
+  color: #ff4444;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  text-shadow: 0 0 20px rgba(255, 68, 68, 0.3);
+}
+
+.card {
+  background: rgba(30, 30, 30, 0.6);
+  backdrop-filter: blur(12px);
+  padding: 3rem 2rem;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 68, 68, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.icon {
+  font-size: 4rem;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 0 10px rgba(255, 204, 0, 0.5));
+}
+
+.message {
+  font-size: 1.1rem;
+  color: #ccc;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.pathBox {
+  background: #151515;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+  margin: 10px 0;
+}
+
+.label {
+  display: block;
+  font-size: 0.75rem;
+  color: #666;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  letter-spacing: 1px;
+}
+
+.filepath {
+  color: #ff9800;
+  font-family: "Consolas", monospace;
+  font-size: 0.95rem;
+  word-break: break-all;
+}
+
+.backBtn {
+  background: linear-gradient(135deg, #2196f3, #1565c0);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.backBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4);
+}
+
+.backBtn:active {
+  transform: scale(0.98);
+}
