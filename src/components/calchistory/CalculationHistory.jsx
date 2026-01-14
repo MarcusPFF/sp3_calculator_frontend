@@ -9,8 +9,7 @@ const CalculationHistory = () => {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        // Skift til calcapi.marcuspff.com
-        const response = await fetch("http://localhost:7070/api/public/calculations");
+        const response = await fetch("https://calcapi.marcuspff.com/api/public/calculations");
         
         if (!response.ok) {
           throw new Error("Failed to fetch history");

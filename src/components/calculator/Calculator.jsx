@@ -30,7 +30,7 @@ const Calculator = ({ loggedIn }) => {
       const options = facade.makeOptions("POST", true, body);
 
       const response = await fetch(
-        `http://localhost:7070/api/calc/${operation}`,
+        `https://calcapi.marcuspff.com/api/calc/${operation}`,
         options
       );
 

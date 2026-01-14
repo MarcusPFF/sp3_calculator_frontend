@@ -9,8 +9,7 @@ const Stats = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        // Skift til calcapi.marcuspff.com
-        const response = await fetch("http://localhost:7070/api/public/stats");
+        const response = await fetch("https://calcapi.marcuspff.com/api/public/stats");
         if (!response.ok) throw new Error("Failed to load statistics");
 
         const data = await response.json();

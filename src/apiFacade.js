@@ -1,5 +1,4 @@
-//Skift til calcapi.marcuspff.com
-const BASE_URL = "http://localhost:7070/api/";
+const BASE_URL = "https://calcapi.marcuspff.com/api/";
 const LOGIN_ENDPOINT = "auth/login";
 
 function handleHttpErrors(res) {
