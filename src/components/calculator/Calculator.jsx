@@ -48,7 +48,7 @@ const Calculator = ({ loggedIn }) => {
     <div className={styles.card}>
       <h2>API Calculator</h2>
 
-      {isAdmin && <div className={styles.proBadge}> PAID USER ACTIVE</div>}
+      {isAdmin && <div className={styles.proBadge}>PAID USER ACTIVE</div>}
 
       <Inputs num1={num1} setNum1={setNum1} num2={num2} setNum2={setNum2} />
 

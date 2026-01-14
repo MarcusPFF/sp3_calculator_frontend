@@ -1,0 +1,53 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # --- PHASE 1: SETUP & CHECKS
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm" 
+
+      - name: Install Dependencies
+        run: npm ci 
+
+      - name: Run Linter
+        run: npm run lint
+
+      - name: Build the React project
+        run: npm run build
+
+      # --- PHASE 2: DEPLOYMENT
+      
+      - name: Set up SSH agent
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.DO_SSH_KEY }}
+
+      - name: Sync files to DigitalOcean Droplet using rsync
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: |
+          # --- CONFIGURATION ---
+          SSH_USER="root"
+          APP_NAME="calculator"
+          DO_DROPLET_IP=${{ secrets.DO_DROPLET_IP }}
+          REMOTE_PATH="/home/$SSH_USER/deployment/site/$APP_NAME/"
+
+          echo "Deploying to $REMOTE_PATH on $DO_DROPLET_IP..."
+
+          # Sync build output (./dist/) to the Droplet
+          rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no" ./dist/ $SSH_USER@$DO_DROPLET_IP:$REMOTE_PATH
