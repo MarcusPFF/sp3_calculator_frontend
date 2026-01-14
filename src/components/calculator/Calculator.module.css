@@ -111,7 +111,7 @@
 
 .buttonSection {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* 2 columns grid looks better for 4 buttons */
+  grid-template-columns: 1fr 1fr; 
   gap: 15px;
   width: 100%;
 }
@@ -164,4 +164,14 @@
   display: inline-block;
   margin-bottom: 15px;
   letter-spacing: 1px;
+}
+
+
+
+.mulBtn:disabled,
+.divBtn:disabled {
+  opacity: 0.5;          
+  cursor: not-allowed;    
+  filter: grayscale(100%); 
+  pointer-events: none;   
 }

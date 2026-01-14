@@ -14,23 +14,23 @@ const Buttons = ({ doCalculation, isAdmin }) => {
         Subtract (-)
       </button>
 
-      {isAdmin && (
-        <>
-          <button
-            className={styles.mulBtn}
-            onClick={() => doCalculation("multiply")}
-          >
-            Multiply (x)
-          </button>
+      <button
+        className={styles.mulBtn}
+        onClick={() => doCalculation("multiply")}
+        disabled={!isAdmin} 
+        title={!isAdmin ? "Upgrade to unlock this feature" : ""}
+      >
+        Multiply (x) {isAdmin ? "" : ""}
+      </button>
 
-          <button
-            className={styles.divBtn}
-            onClick={() => doCalculation("divide")}
-          >
-            Divide (÷)
-          </button>
-        </>
-      )}
+      <button
+        className={styles.divBtn}
+        onClick={() => doCalculation("divide")}
+        disabled={!isAdmin}
+        title={!isAdmin ? "Upgrade to unlock this feature" : ""}
+      >
+        Divide (÷) {isAdmin ? "" : ""}
+      </button>
     </div>
   );
 };
