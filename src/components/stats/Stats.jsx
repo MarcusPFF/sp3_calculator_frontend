@@ -124,7 +124,7 @@ const getSymbol = (op) => {
     case "SUBTRACT":
       return "-";
     case "MULTIPLY":
-      return "×";
+      return "x";
     case "DIVIDE":
       return "÷";
     default:

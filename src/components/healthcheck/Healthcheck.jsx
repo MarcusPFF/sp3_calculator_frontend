@@ -39,27 +39,39 @@ const Healthcheck = () => {
   return (
     <div className={styles.container}>
       <h2>System Monitor</h2>
-      {lastChecked && <p className={styles.timestamp}>Last updated: {lastChecked}</p>}
+      {lastChecked && (
+        <p className={styles.timestamp}>Last updated: {lastChecked}</p>
+      )}
 
-      <div className={`${styles.card} ${isOnline ? styles.cardOnline : styles.cardOffline}`}>
+      <div
+        className={`${styles.card} ${
+          isOnline ? styles.cardOnline : styles.cardOffline
+        }`}
+      >
         <div className={styles.iconContainer}>
           {loading ? (
             <div className={styles.spinner}></div>
           ) : (
-            <div className={`${styles.statusRing} ${isOnline ? styles.pulseGreen : styles.pulseRed}`}>
+            <div
+              className={`${styles.statusRing} ${
+                isOnline ? styles.pulseGreen : styles.pulseRed
+              }`}
+            >
               {isOnline ? "✔" : "✖"}
             </div>
           )}
         </div>
 
         <div className={styles.info}>
-          <h3 className={styles.statusText}>{loading ? "Checking..." : status}</h3>
+          <h3 className={styles.statusText}>
+            {loading ? "Checking..." : status}
+          </h3>
           <p className={styles.subtext}>
-            {loading 
+            {loading
               ? "Pinging external server..."
               : isOnline
-                ? "Secure connection to Java Backend established. All systems operational."
-                : "Unable to reach the backend API. Services may be down."}
+              ? "Secure connection to Java Backend established. All systems operational."
+              : "Unable to reach the backend API. Services may be down."}
           </p>
         </div>
       </div>
