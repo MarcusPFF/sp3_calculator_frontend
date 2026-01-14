@@ -45,9 +45,12 @@ jobs:
           SSH_USER="root"
           APP_NAME="calculator"
           DO_DROPLET_IP=${{ secrets.DO_DROPLET_IP }}
-          REMOTE_PATH="/home/$SSH_USER/deployment/site/$APP_NAME/"
+          
+          REMOTE_PATH="/root/deployment/site/$APP_NAME/"
 
           echo "Deploying to $REMOTE_PATH on $DO_DROPLET_IP..."
 
-          # Sync build output (./dist/) to the Droplet
+          ssh -o StrictHostKeyChecking=no $SSH_USER@$DO_DROPLET_IP "mkdir -p $REMOTE_PATH"
+
+          # Sync build output
           rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no" ./dist/ $SSH_USER@$DO_DROPLET_IP:$REMOTE_PATH
