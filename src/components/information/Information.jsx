@@ -3,61 +3,54 @@ import styles from "./Information.module.css";
 const Information = () => {
   return (
     <div className={styles.container}>
-      <h2>About This Project</h2>
+      <h2>Project Overview</h2>
       
       <p className={styles.intro}>
-        Welcome to the <strong>Full Stack Exam Calculator</strong>. 
-        While using a server to calculate <code>2 + 2</code> is technically overkill, 
-        this project serves a specific educational purpose.
+        <strong>Why use a server for 2 + 2?</strong><br />
+        I know—calculating simple math on a backend server is inefficient. 
+        However, this application acts as a <strong>Proof of Concept</strong>. 
+        It demonstrates that I can build a complete flow where a client (React) 
+        talks to a secured API (Java/Javalin) and persists data (PostgreSQL).
       </p>
 
       <div className={styles.card}>
-        <h3>The Purpose</h3>
+        <h3>What is actually happening?</h3>
         <p>
-          The goal of this application is not to perform complex mathematics, 
-          but to demonstrate the <strong>communication flow</strong> between a 
-          modern Frontend and a robust Backend.
+          When you click "Add", the browser isn't doing the math. It bundles your 
+          numbers into a JSON object, attaches your security token, and fires it 
+          across the internet to my Digital Ocean droplet.
         </p>
         <p>
-          Every button press triggers a real network request, proving that the 
-          React Client and Java API are connected and exchanging data correctly.
+          The server validates who you are, performs the calculation, saves a 
+          log to the database, and sends the answer back. It's a lot of work for 
+          simple math, but it's the foundation for any complex web app.
         </p>
       </div>
 
-      <h3>System Architecture</h3>
+      <h3>Under the Hood</h3>
       
       <div className={styles.flowChart}>
         <div className={styles.step}>
-          <span className={styles.icon}>⚛️</span>
-          <span className={styles.label}>React Frontend</span>
-          <span className={styles.sub}>Collects Input</span>
+          <span className={styles.icon}>🖥️</span>
+          <span className={styles.label}>Frontend</span>
+          <span className={styles.sub}>React + Vite</span>
         </div>
         
         <div className={styles.arrow}>➜ <span className={styles.json}>JSON</span> ➜</div>
         
         <div className={styles.step}>
           <span className={styles.icon}>☕</span>
-          <span className={styles.label}>Java API</span>
-          <span className={styles.sub}>Business Logic</span>
+          <span className={styles.label}>Backend</span>
+          <span className={styles.sub}>Java + Javalin</span>
         </div>
 
-        <div className={styles.arrow}>➜ <span className={styles.data}>Data</span> ➜</div>
+        <div className={styles.arrow}>➜ <span className={styles.data}>SQL</span> ➜</div>
 
         <div className={styles.step}>
-          <span className={styles.icon}>🗄️</span>
+          <span className={styles.icon}>💾</span>
           <span className={styles.label}>Database</span>
-          <span className={styles.sub}>Persists History</span>
+          <span className={styles.sub}>PostgreSQL</span>
         </div>
-      </div>
-
-      <div className={styles.features}>
-        <h3>Key Features</h3>
-        <ul>
-          <li><strong>React Router:</strong> seamless page navigation.</li>
-          <li><strong>Fetch API:</strong> Async communication with the backend.</li>
-          <li><strong>Java Persistence:</strong> Calculations are saved to a database.</li>
-          <li><strong>Responsive Design:</strong> Works on Mobile and Desktop.</li>
-        </ul>
       </div>
     </div>
   );

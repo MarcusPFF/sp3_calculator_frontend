@@ -9,14 +9,16 @@ const CalculationHistory = () => {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const response = await fetch("https://calcapi.marcuspff.com/api/public/calculations");
-        
+        const response = await fetch(
+          "https://calcapi.marcuspff.com/api/public/calculations"
+        );
+
         if (!response.ok) {
           throw new Error("Failed to fetch history");
         }
 
         const data = await response.json();
-        setHistory(data); // Put the JSON into our array
+        setHistory(data);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -29,32 +31,40 @@ const CalculationHistory = () => {
 
   return (
     <div className={styles.container}>
-      <h2>Recent Calculations</h2>
+      <h2>System Logs</h2>
+      <p className={styles.intro}>
+        Recent calculation requests processed by the server.
+      </p>
 
-      {/* Conditional Rendering */}
-      {isLoading && <p>Loading data...</p>}
-      {error && <p className={styles.error}>{error}</p>}
+      {isLoading && <div className={styles.loading}>Loading Log Data...</div>}
+      {error && <div className={styles.error}>{error}</div>}
 
-      
       {!isLoading && !error && (
-
-       <div className={styles.scrollContainer}>
+        <div className={styles.scrollContainer}>
           <table className={styles.table}>
             <thead>
-
               <tr>
-                <th style={{position: 'sticky', top: 0, zIndex: 1}}>Operation</th>
-                <th style={{position: 'sticky', top: 0, zIndex: 1}}>Num 1</th>
-                <th style={{position: 'sticky', top: 0, zIndex: 1}}>Num 2</th>
-                <th style={{position: 'sticky', top: 0, zIndex: 1}}>Result</th>
+                <th>Method</th>
+                <th>Input A</th>
+                <th>Input B</th>
+                <th>Output</th>
               </tr>
             </thead>
             <tbody>
               {history.map((calc, index) => (
-                <tr key={index}> 
-                  <td>{calc.operation}</td>
-                  <td>{calc.num1}</td>
-                  <td>{calc.num2}</td>
+                <tr key={index}>
+                  <td>
+                    <span
+                      className={`${styles.badge} ${getBadgeStyle(
+                        calc.operation,
+                        styles
+                      )}`}
+                    >
+                      {calc.operation}
+                    </span>
+                  </td>
+                  <td className={styles.number}>{calc.num1}</td>
+                  <td className={styles.number}>{calc.num2}</td>
                   <td className={styles.result}>{calc.result}</td>
                 </tr>
               ))}
@@ -62,10 +72,27 @@ const CalculationHistory = () => {
           </table>
         </div>
       )}
-      
-      {!isLoading && history.length === 0 && <p>No history found.</p>}
+
+      {!isLoading && history.length === 0 && (
+        <p className={styles.noData}>No logs found.</p>
+      )}
     </div>
   );
+};
+
+const getBadgeStyle = (op, styles) => {
+  switch (op) {
+    case "ADD":
+      return styles.badgeAdd;
+    case "SUBTRACT":
+      return styles.badgeSub;
+    case "MULTIPLY":
+      return styles.badgeMul;
+    case "DIVIDE":
+      return styles.badgeDiv;
+    default:
+      return "";
+  }
 };
 
 export default CalculationHistory;

@@ -14,14 +14,19 @@ const ApiExamples = () => {
         const url = "https://calcapi.marcuspff.com/api/public/examples";
         const response = await fetch(url);
         if (!response.ok) throw new Error("Could not fetch examples");
-        
+
         const data = await response.json();
-        
+
         const list = Object.entries(data).map(([key, value]) => ({
           name: key.toUpperCase(),
           method: value.method,
           url: value.path,
-          json: value.body
+
+          fullRequest: {
+            method: value.method,
+            path: value.path,
+            body: value.body,
+          },
         }));
 
         setExamples(list);
@@ -35,33 +40,42 @@ const ApiExamples = () => {
     fetchExamples();
   }, []);
 
-  if (loading) return <h3 style={{textAlign:'center', color:'white'}}>Loading...</h3>;
-  if (error) return <h3 style={{textAlign:'center', color:'red'}}>{error}</h3>;
+  if (loading) return <div className={styles.loading}>Loading API Docs...</div>;
+  if (error) return <div className={styles.error}>Error: {error}</div>;
 
   return (
     <div className={styles.container}>
-      <h2>API Reference</h2>
-      <p>Send a <strong>POST</strong> request to the following endpoints.</p>
+      <h2>API Documentation</h2>
+      <p className={styles.intro}>
+        All endpoints are prefixed with <code>/api/calc</code>.
+        <br />
+        Standard operations are open, while complex calculations require a{" "}
+        <strong>valid Bearer Token</strong> with paid user privileges.
+      </p>
 
-      <div className={styles.list}>
+      <div className={styles.grid}>
         {examples.map((ex, index) => {
-          const isAdmin = restrictedOperations.includes(ex.name);
+          const isRestricted = restrictedOperations.includes(ex.name);
 
           return (
-            <div key={index} className={styles.item}>
-              <div className={styles.header}>
-                <h3>{ex.name}</h3>
-                
-                {isAdmin && <span className={styles.adminBadge}>Paid users only</span>}
+            <div key={index} className={styles.card}>
+              <div className={styles.cardHeader}>
+                <div className={styles.titleGroup}>
+                  <span className={styles.methodBadge}>{ex.method}</span>
+                  <h3>{ex.name}</h3>
+                </div>
+
+                {isRestricted && <span className={styles.proBadge}>Paid</span>}
               </div>
 
-              <div className={styles.endpoint}>
-                <span className={styles.method}>{ex.method}</span> 
-                <span className={styles.url}>{ex.url}</span>
+              <div className={styles.urlBar}>
+                <span className={styles.path}>{ex.url}</span>
               </div>
-              
-              <pre className={styles.jsonBlock}>
-{JSON.stringify(ex.json, null, 2)}
+
+              <div className={styles.codeLabel}>Full Request Structure</div>
+
+              <pre className={styles.codeBlock}>
+                {JSON.stringify(ex.fullRequest, null, 2)}
               </pre>
             </div>
           );
