@@ -52,7 +52,7 @@ const CalculationHistory = () => {
             </thead>
             <tbody>
               {history.map((calc, index) => (
-                <tr key={calc.id || index}>
+                <tr key={index}>
                   <td>
                     <span
                       className={`${styles.badge} ${getBadgeStyle(
